@@ -15,7 +15,9 @@ public class VenueHireSystem {
 
   public void createVenue(
       String venueName, String venueCode, String capacityInput, String hireFeeInput) {
-        ArrayList<Venue> venue = new ArrayList<Venue>();
+        Venue venue = new Venue(venueName, venueCode, capacityInput, hireFeeInput);
+        venue.addVenue(venue);
+        venue.addVenueSuccess(venue);
   }
 
   public void setSystemDate(String dateInput) {
