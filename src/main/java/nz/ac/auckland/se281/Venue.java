@@ -8,26 +8,26 @@ public class Venue {
   private String cap;
   private String fee;
 
-  public Venue(String venueName, String venueCode, String capacityInput, String hireFeeInput){
+  public Venue(String venueName, String venueCode, String capacityInput, String hireFeeInput) {
     name = venueName;
     code = venueCode;
     cap = capacityInput;
     fee = hireFeeInput;
   }
 
-  public String getName(){
+  public String getName() {
     return name;
   }
 
-  public String getCode(){
+  public String getCode() {
     return code;
   }
 
-  public String getCap(){
+  public String getCap() {
     return cap;
   }
 
-  public String getFee(){
+  public String getFee() {
     return fee;
   }
 
