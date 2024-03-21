@@ -22,4 +22,23 @@ public class Venue {
   public void addVenueSuccess(Venue venue){
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(name, code);
   }
+
+  public void addVenueFail(Venue venue){
+
+  }
+  public boolean venueValid(Venue venue){
+    return venue.checkName(name);
+  }
+
+  public boolean checkName(String name){
+    String cleanName = name.replaceAll("\\s+","");
+    int nameLength = cleanName.length();
+    if (nameLength == 0){
+      MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
 }

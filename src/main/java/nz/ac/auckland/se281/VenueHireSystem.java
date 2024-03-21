@@ -16,8 +16,12 @@ public class VenueHireSystem {
   public void createVenue(
       String venueName, String venueCode, String capacityInput, String hireFeeInput) {
         Venue venue = new Venue(venueName, venueCode, capacityInput, hireFeeInput);
-        venue.addVenue(venue);
-        venue.addVenueSuccess(venue);
+        if (venue.venueValid(venue) == true){
+          venue.addVenue(venue);
+          venue.addVenueSuccess(venue);}
+        else{
+          venue.addVenueFail(venue);
+        }
   }
 
   public void setSystemDate(String dateInput) {
