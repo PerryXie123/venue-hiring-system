@@ -146,6 +146,9 @@ public class VenueHireSystem {
     else if (checkCode(venue.getCode()) == false){
       return false;
     }
+    else if (checkCap(venue.getCap()) == false){
+      return false;
+    }
     else{
       return true;
     }
@@ -174,6 +177,24 @@ public class VenueHireSystem {
       }
     }
     return true;
+  }
+
+  //Checks if capacity is valid
+  public boolean checkCap(String capString){
+    try{
+      int num = Integer.valueOf(capString);
+      if (num <= 0){
+        MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
+        return false;
+      }
+      else{
+        return true;
+      }
+    }
+    catch (Exception exception){
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", "");
+      return false;
+    }
   }
 
 
