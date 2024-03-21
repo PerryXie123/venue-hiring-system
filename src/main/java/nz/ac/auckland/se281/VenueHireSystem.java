@@ -155,7 +155,9 @@ public class VenueHireSystem {
   }
 
   public void setSystemDate(String dateInput) {
-    // TODO implement this method
+    String[] dateParts = dateInput.split("/");
+    Date date = new Date(dateParts[0], dateParts[1], dateParts[2]);
+    MessageCli.DATE_SET.printMessage(dateInput);
   }
 
   public void printSystemDate() {
