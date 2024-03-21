@@ -71,6 +71,12 @@ public class VenueHireSystem {
           MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), venue.getCap(), venue.getFee());
       }
     }
+      else if(venueList.size() >= 10){
+        MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(venueList.size()), "s");
+        for (Venue venue : venueList) {
+          MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), venue.getCap(), venue.getFee());
+      }
+    }
   }
 
 
