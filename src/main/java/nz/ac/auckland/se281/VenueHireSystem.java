@@ -17,8 +17,63 @@ public class VenueHireSystem {
     if(venueList.size() == 0){
         MessageCli.NO_VENUES.printMessage();
     }
-
+    else if(venueList.size() == 1){
+      MessageCli.NUMBER_VENUES.printMessage("is", "one", "");
+      for (Venue venue : venueList) {
+        MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), venue.getCap(), venue.getFee());
+      }
+    }
+    else if(venueList.size() == 2){
+        MessageCli.NUMBER_VENUES.printMessage("are", "two", "s");
+        for (Venue venue : venueList) {
+          MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), venue.getCap(), venue.getFee());
+      }
+    }
+    else if(venueList.size() == 3){
+      MessageCli.NUMBER_VENUES.printMessage("are", "three", "s");
+      for (Venue venue : venueList) {
+        MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), venue.getCap(), venue.getFee());
+      }
+    }
+      else if(venueList.size() == 4){
+        MessageCli.NUMBER_VENUES.printMessage("are", "four", "s");
+        for (Venue venue : venueList) {
+          MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), venue.getCap(), venue.getFee());
+      }
+    }
+      else if(venueList.size() == 5){
+        MessageCli.NUMBER_VENUES.printMessage("are", "five", "s");
+        for (Venue venue : venueList) {
+          MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), venue.getCap(), venue.getFee());
+      }
+    }
+      else if(venueList.size() == 6){
+        MessageCli.NUMBER_VENUES.printMessage("are", "six", "s");
+        for (Venue venue : venueList) {
+          MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), venue.getCap(), venue.getFee());
+      }
+    }
+      else if(venueList.size() == 7){
+        MessageCli.NUMBER_VENUES.printMessage("are", "seven", "s");
+        for (Venue venue : venueList) {
+          MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), venue.getCap(), venue.getFee());
+      }
+    }
+      else if(venueList.size() == 8){
+        MessageCli.NUMBER_VENUES.printMessage("are", "eight", "s");
+        for (Venue venue : venueList) {
+          MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), venue.getCap(), venue.getFee());
+      }
+    }
+      else if(venueList.size() == 9){
+        MessageCli.NUMBER_VENUES.printMessage("are", "nine", "s");
+        for (Venue venue : venueList) {
+          MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), venue.getCap(), venue.getFee());
+      }
+    }
   }
+
+
 
   public void createVenue(
       String venueName, String venueCode, String capacityInput, String hireFeeInput) {
