@@ -8,6 +8,7 @@ public class VenueHireSystem {
 
   //private ArrayList<Venue> venueList;
   private ArrayList<Venue> venueList = new ArrayList<Venue>();
+  private String currentDate = "null";
 
   public VenueHireSystem() {
     //ArrayList<Venue> venueList = new ArrayList<Venue>();
@@ -157,11 +158,18 @@ public class VenueHireSystem {
   public void setSystemDate(String dateInput) {
     String[] dateParts = dateInput.split("/");
     Date date = new Date(dateParts[0], dateParts[1], dateParts[2]);
+    currentDate = dateInput;
     MessageCli.DATE_SET.printMessage(dateInput);
   }
 
   public void printSystemDate() {
-    // TODO implement this method
+    if (currentDate == "null"){
+      MessageCli.CURRENT_DATE.printMessage("not set");
+    }
+    else {
+      MessageCli.CURRENT_DATE.printMessage(currentDate);
+    }
+    
   }
 
   public void makeBooking(String[] options) {
@@ -293,5 +301,9 @@ public class VenueHireSystem {
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
       return false;
     }
+  }
+
+  public int theDay(Date date){
+    return date.getDay();
   }
 }
