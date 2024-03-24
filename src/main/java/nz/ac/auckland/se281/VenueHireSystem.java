@@ -8,7 +8,7 @@ public class VenueHireSystem {
 
   //private ArrayList<Venue> venueList;
   private ArrayList<Venue> venueList = new ArrayList<Venue>();
-  private String currentDate = "null";
+  private Date currentDate;
 
   public VenueHireSystem() {
     //ArrayList<Venue> venueList = new ArrayList<Venue>();
@@ -158,16 +158,16 @@ public class VenueHireSystem {
   public void setSystemDate(String dateInput) {
     String[] dateParts = dateInput.split("/");
     Date date = new Date(dateParts[0], dateParts[1], dateParts[2]);
-    currentDate = dateInput;
+    currentDate = date;
     MessageCli.DATE_SET.printMessage(dateInput);
   }
 
   public void printSystemDate() {
-    if (currentDate == "null"){
+    if (currentDate == null){
       MessageCli.CURRENT_DATE.printMessage("not set");
     }
     else {
-      MessageCli.CURRENT_DATE.printMessage(currentDate);
+      MessageCli.CURRENT_DATE.printMessage(currentDate.getDate());
     }
     
   }
