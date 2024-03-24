@@ -177,9 +177,9 @@ public class VenueHireSystem {
     if (currentDate == null){
       MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
     }
-    //else if (venueList.size() == 0){
-
-    //}
+    else if (venueList.size() == 0){
+      MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
+    }
   }
 
   public void printBookings(String venueCode) {
