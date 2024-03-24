@@ -174,11 +174,23 @@ public class VenueHireSystem {
 
   public void makeBooking(String[] options) {
     String[] bookingDateParts = options[1].split("/");
+    int codeCompare = 0;
+    for (Venue venue : venueList) {
+      if(options[0].equals(venue.getCode())){
+        codeCompare++;
+      }
+    }
     if (currentDate == null){
       MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
     }
     else if (venueList.size() == 0){
       MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
+    }
+    else if (codeCompare == 0){
+      MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(options[0]);
+    }
+    else if (dateAfterCheck == false){
+
     }
   }
 
@@ -311,5 +323,11 @@ public class VenueHireSystem {
 
   public int theDay(Date date){
     return date.getDay();
+  }
+
+  public boolean dateAfterCheck(String[] bookingDate){
+    if(Integer.parseInt(bookingDate[2])< currentDate.getYear()){
+      return false;
+    }
   }
 }
