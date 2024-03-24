@@ -175,24 +175,53 @@ public class VenueHireSystem {
   public void makeBooking(String[] options) {
     String[] bookingDateParts = options[1].split("/");
     int codeCompare = 0;
+    boolean bookingValid = true;
+    int VenueCapacity = 0;
+    String VenueName = "null";
     for (Venue venue : venueList) {
       if(options[0].equals(venue.getCode())){
         codeCompare++;
+        VenueCapacity = Integer.parseInt(venue.getCap());
+        VenueName = venue.getName();
       }
     }
     if (currentDate == null){
       MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
+      bookingValid = false;
     }
     else if (venueList.size() == 0){
       MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
+      bookingValid = false;
     }
     else if (codeCompare == 0){
       MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(options[0]);
+      bookingValid = false;
     }
     else if (dateAfterCheck(bookingDateParts) == false){
       MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(options[1], (theDay(currentDate)));
+      bookingValid = false;
     }
+    if (bookingValid == true){
+      if (Integer.parseInt(options[3]) > VenueCapacity){
+        int newAttendees = VenueCapacity;
+        options[3] = Integer.toString(newAttendees);
+      }
+      else if (Integer.parseInt(options[3]) < VenueCapacity/4){
+        int newAttendees = VenueCapacity/4;
+        options[3] = Integer.toString(newAttendees);
+      }
+      else{
+        options[3] = Integer.toString(VenueCapacity);
+      }
+      
+      String bookingReference = BookingReferenceGenerator.generateBookingReference();
+      Booking booking = new Booking(options[0], options[1], options[2], options[3], bookingReference);
+      bookingList.add(booking);
+      MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingReference, VenueName, options[1], options[3]);
+    }
+      
   }
+  
 
   public void printBookings(String venueCode) {
     // TODO implement this method
