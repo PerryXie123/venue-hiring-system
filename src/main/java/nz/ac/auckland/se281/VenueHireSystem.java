@@ -8,10 +8,10 @@ public class VenueHireSystem {
 
   //private ArrayList<Venue> venueList;
   private ArrayList<Venue> venueList = new ArrayList<Venue>();
+  private ArrayList<Booking> bookingList = new ArrayList<Booking>();
   private Date currentDate;
 
   public VenueHireSystem() {
-    //ArrayList<Venue> venueList = new ArrayList<Venue>();
   }
 
   //prints venue with different messages depending on the number of venues in the system currently
@@ -173,7 +173,13 @@ public class VenueHireSystem {
   }
 
   public void makeBooking(String[] options) {
-    // TODO implement this method
+    String[] bookingDateParts = options[1].split("/");
+    if (currentDate == null){
+      MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
+    }
+    //else if (venueList.size() == 0){
+
+    //}
   }
 
   public void printBookings(String venueCode) {
