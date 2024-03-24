@@ -189,8 +189,8 @@ public class VenueHireSystem {
     else if (codeCompare == 0){
       MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(options[0]);
     }
-    else if (dateAfterCheck == false){
-
+    else if (dateAfterCheck(bookingDateParts) == false){
+      MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(options[1], (theDay(currentDate)));
     }
   }
 
@@ -321,13 +321,22 @@ public class VenueHireSystem {
     }
   }
 
-  public int theDay(Date date){
-    return date.getDay();
+  public String theDay(Date date){
+    return date.getDate();
   }
 
   public boolean dateAfterCheck(String[] bookingDate){
-    if(Integer.parseInt(bookingDate[2])< currentDate.getYear()){
+    if(Integer.parseInt(bookingDate[2]) < currentDate.getYear()){
       return false;
+    }
+    else if(Integer.parseInt(bookingDate[1]) < currentDate.getMonth()){
+      return false;
+    }
+    else if(Integer.parseInt(bookingDate[0]) < currentDate.getDay()){
+      return false;
+    }
+    else{
+      return true;
     }
   }
 }
