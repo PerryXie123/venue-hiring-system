@@ -175,9 +175,19 @@ public class VenueHireSystem {
   public void makeBooking(String[] options) {
     String[] bookingDateParts = options[1].split("/");
     int codeCompare = 0;
+    int venueCompare = 0;
     boolean bookingValid = true;
     int VenueCapacity = 0;
     String VenueName = "null";
+    String alreadyBookedVenue = "null";
+    String bookedDate = "null";
+    for (Booking booking : bookingList) {
+      if(options[0].equals(booking.getBookingCode()) && options[1].equals(booking.getRequestedDate()))
+      venueCompare++;
+      alreadyBookedVenue = booking.getVenueName();
+      bookedDate = booking.getRequestedDate();
+    }
+
     for (Venue venue : venueList) {
       if(options[0].equals(venue.getCode())){
         codeCompare++;
@@ -201,6 +211,11 @@ public class VenueHireSystem {
       MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(options[1], (theDay(currentDate)));
       bookingValid = false;
     }
+    else if (venueCompare != 0){
+      MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(alreadyBookedVenue, bookedDate);
+      bookingValid = false;
+    }
+
     if (bookingValid == true){
       if (Integer.parseInt(options[3]) > VenueCapacity){
         int newAttendees = VenueCapacity;
@@ -216,7 +231,7 @@ public class VenueHireSystem {
       }
       
       String bookingReference = BookingReferenceGenerator.generateBookingReference();
-      Booking booking = new Booking(options[0], options[1], options[2], options[3], bookingReference);
+      Booking booking = new Booking(options[0], options[1], options[2], options[3], bookingReference, VenueName);
       bookingList.add(booking);
       MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingReference, VenueName, options[1], options[3]);
     }
