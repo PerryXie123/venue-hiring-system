@@ -214,9 +214,6 @@ public class VenueHireSystem {
         options[3] = Integer.toString(newAttendees);
         MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(oldAttendees, Integer.toString(newAttendees), Integer.toString(VenueCapacity));
       }
-      else{
-        options[3] = Integer.toString(VenueCapacity);
-      }
       
       String bookingReference = BookingReferenceGenerator.generateBookingReference();
       Booking booking = new Booking(options[0], options[1], options[2], options[3], bookingReference);
