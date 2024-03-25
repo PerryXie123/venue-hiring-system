@@ -204,11 +204,15 @@ public class VenueHireSystem {
     if (bookingValid == true){
       if (Integer.parseInt(options[3]) > VenueCapacity){
         int newAttendees = VenueCapacity;
+        String oldAttendees = options[3];
         options[3] = Integer.toString(newAttendees);
+        MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(oldAttendees, Integer.toString(newAttendees), Integer.toString(VenueCapacity));
       }
       else if (Integer.parseInt(options[3]) < VenueCapacity/4){
         int newAttendees = VenueCapacity/4;
+        String oldAttendees = options[3];
         options[3] = Integer.toString(newAttendees);
+        MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(oldAttendees, Integer.toString(newAttendees), Integer.toString(VenueCapacity));
       }
       else{
         options[3] = Integer.toString(VenueCapacity);
