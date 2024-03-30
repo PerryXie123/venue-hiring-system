@@ -27,7 +27,8 @@ public class VenueHireSystem {
           venue.getName(),
           venue.getCode(),
           venue.getCap(),
-          venue.getFee()
+          venue.getFee(),
+          venue.getNextAvailable()
         );
       }
       //For sizes 2-9, use the keywords "are" and "number of venues"
@@ -38,7 +39,8 @@ public class VenueHireSystem {
           venue.getName(),
           venue.getCode(),
           venue.getCap(),
-          venue.getFee()
+          venue.getFee(),
+          venue.getNextAvailable()
         );
       }
       //Message for 3 venues
@@ -49,7 +51,8 @@ public class VenueHireSystem {
           venue.getName(),
           venue.getCode(),
           venue.getCap(),
-          venue.getFee()
+          venue.getFee(),
+          venue.getNextAvailable()
         );
       }
       //Message for 4 venues
@@ -60,7 +63,8 @@ public class VenueHireSystem {
           venue.getName(),
           venue.getCode(),
           venue.getCap(),
-          venue.getFee()
+          venue.getFee(),
+          venue.getNextAvailable()
         );
       }
       //Message for 5 venues
@@ -71,7 +75,8 @@ public class VenueHireSystem {
           venue.getName(),
           venue.getCode(),
           venue.getCap(),
-          venue.getFee()
+          venue.getFee(),
+          venue.getNextAvailable()
         );
       }
       //Message for 6 venues
@@ -82,7 +87,8 @@ public class VenueHireSystem {
           venue.getName(),
           venue.getCode(),
           venue.getCap(),
-          venue.getFee()
+          venue.getFee(),
+          venue.getNextAvailable()
         );
       }
       //Message for 7 venues
@@ -93,7 +99,8 @@ public class VenueHireSystem {
           venue.getName(),
           venue.getCode(),
           venue.getCap(),
-          venue.getFee()
+          venue.getFee(),
+          venue.getNextAvailable()
         );
       }
       //Message for 8 venues
@@ -104,7 +111,8 @@ public class VenueHireSystem {
           venue.getName(),
           venue.getCode(),
           venue.getCap(),
-          venue.getFee()
+          venue.getFee(),
+          venue.getNextAvailable()
         );
       }
       //Message for 9 venues
@@ -115,7 +123,8 @@ public class VenueHireSystem {
           venue.getName(),
           venue.getCode(),
           venue.getCap(),
-          venue.getFee()
+          venue.getFee(),
+          venue.getNextAvailable()
         );
       }
       //For venue sizes greater than 10, use digits instead of english words
@@ -130,7 +139,8 @@ public class VenueHireSystem {
           venue.getName(),
           venue.getCode(),
           venue.getCap(),
-          venue.getFee()
+          venue.getFee(),
+          venue.getNextAvailable()
         );
       }
     }
@@ -144,7 +154,14 @@ public class VenueHireSystem {
     String capacityInput,
     String hireFeeInput
   ) {
-    Venue venue = new Venue(venueName, venueCode, capacityInput, hireFeeInput);
+    String nextAvailable;
+    if (currentDate == null){
+      nextAvailable = "00/00/00";
+    }
+    else{
+      nextAvailable = currentDate.getDate();
+    }
+    Venue venue = new Venue(venueName, venueCode, capacityInput, hireFeeInput, nextAvailable);
     //Checks if the venue is valid 
     if (checkVenueValid(venue) == true) {
       addVenue(venue);
@@ -160,6 +177,11 @@ public class VenueHireSystem {
     Date date = new Date(dateParts[0], dateParts[1], dateParts[2]);
     currentDate = date;
     MessageCli.DATE_SET.printMessage(dateInput);
+    for (Venue venue : venueList) {
+      if(venue.getNextAvailable().equals("00/00/00")){
+        venue.setNextAvailable(dateInput);
+      }
+    }
   }
 
   public void printSystemDate() {

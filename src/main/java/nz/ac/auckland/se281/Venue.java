@@ -7,12 +7,14 @@ public class Venue {
   private String code;
   private String cap;
   private String fee;
+  private String nextdate;
 
-  public Venue(String venueName, String venueCode, String capacityInput, String hireFeeInput) {
+  public Venue(String venueName, String venueCode, String capacityInput, String hireFeeInput, String nextAvailable) {
     name = venueName;
     code = venueCode;
     cap = capacityInput;
     fee = hireFeeInput;
+    nextdate = nextAvailable;
   }
 
   public String getName() {
@@ -29,6 +31,14 @@ public class Venue {
 
   public String getFee() {
     return fee;
+  }
+
+  public String getNextAvailable() {
+    return nextdate;
+  }
+
+  public void setNextAvailable(String dateInput){
+    nextdate = dateInput;
   }
 
 }
