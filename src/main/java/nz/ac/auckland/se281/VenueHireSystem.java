@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import nz.ac.auckland.se281.Types.CateringType;
 import nz.ac.auckland.se281.Types.FloralType;
 
+
 public class VenueHireSystem {
 
   //private ArrayList<Venue> venueList;
@@ -178,10 +179,13 @@ public class VenueHireSystem {
     currentDate = date;
     MessageCli.DATE_SET.printMessage(dateInput);
     for (Venue venue : venueList) {
-      if(venue.getNextAvailable().equals("00/00/00")){
-        venue.setNextAvailable(dateInput);
-      }
+      venue.setNextAvailable(dateInput);
+      
     }
+    for (Venue venue :venueList) {
+      //update next available
+    }
+    date.setTheDate();
   }
 
   public void printSystemDate() {
