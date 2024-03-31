@@ -275,15 +275,24 @@ public class VenueHireSystem {
   public void printBookings(String venueCode) {
     int venueCount = 0;
     String venueName = "";
-
+    int bookingsCount = 0;
     for (Venue venue : venueList) {
       if (venueCode.equals(venue.getCode())){
         venueCount++;
         venueName = venue.getName();
       }
     }
+    for (Booking booking : bookingList) {
+      if(venueCode.equals(booking.getBookingCode())){
+        bookingsCount++;
+      }
+    }
     if(venueCount == 0){
       MessageCli.PRINT_BOOKINGS_VENUE_NOT_FOUND.printMessage(venueCode);
+    }
+    else if(bookingsCount == 0 && venueCount > 0){
+      MessageCli.PRINT_BOOKINGS_HEADER.printMessage(venueName);
+      MessageCli.PRINT_BOOKINGS_NONE.printMessage(venueName);
     }
   }
 
