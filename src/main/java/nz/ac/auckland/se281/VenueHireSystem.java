@@ -294,6 +294,14 @@ public class VenueHireSystem {
       MessageCli.PRINT_BOOKINGS_HEADER.printMessage(venueName);
       MessageCli.PRINT_BOOKINGS_NONE.printMessage(venueName);
     }
+    else if(bookingsCount > 0 && venueCount > 0){
+      MessageCli.PRINT_BOOKINGS_HEADER.printMessage(venueName);
+      for (Booking booking : bookingList) {
+        if(venueCode.equals(booking.getBookingCode())){
+          MessageCli.PRINT_BOOKINGS_ENTRY.printMessage(booking.getReference(), booking.getRequestedDate());
+        }
+      }
+    }
   }
 
   public void addCateringService(
