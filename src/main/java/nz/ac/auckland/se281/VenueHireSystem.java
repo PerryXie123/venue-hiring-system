@@ -17,11 +17,11 @@ public class VenueHireSystem {
 
   //prints venue with different messages depending on the number of venues in the system currently
   public void printVenues() {
-    Date tempDate;
+    Date tempDate = new Date("00", "00", "00");
     for (Venue venue :venueList) {
       for (Booking booking : bookingList) {
         if(venue.getCode().equals(booking.getBookingCode())){
-          if(venue.getNextAvailable().getDate().equals(booking.getRequestedDate())){
+          while(venue.getNextAvailable().getDate().equals(booking.getRequestedDate())){
             tempDate = venue.getNextAvailable().incrementDate();
             venue.setNextAvailable(tempDate);
           }
@@ -273,7 +273,18 @@ public class VenueHireSystem {
   
 
   public void printBookings(String venueCode) {
-    // TODO implement this method
+    int venueCount = 0;
+    String venueName = "";
+
+    for (Venue venue : venueList) {
+      if (venueCode.equals(venue.getCode())){
+        venueCount++;
+        venueName = venue.getName();
+      }
+    }
+    if(venueCount == 0){
+      MessageCli.PRINT_BOOKINGS_VENUE_NOT_FOUND.printMessage(venueCode);
+    }
   }
 
   public void addCateringService(
@@ -404,17 +415,17 @@ public class VenueHireSystem {
   }
 
   public boolean dateAfterCheck(String[] bookingDate){
-    if(Integer.parseInt(bookingDate[2]) < currentDate.getYear()){
-      return false;
+    if(Integer.parseInt(bookingDate[2]) >= currentDate.getYear()){
+      return true;
     }
-    else if(Integer.parseInt(bookingDate[1]) < currentDate.getMonth()){
-      return false;
+    else if(Integer.parseInt(bookingDate[1]) >= currentDate.getMonth()){
+      return true;
     }
-    else if(Integer.parseInt(bookingDate[0]) < currentDate.getDay()){
-      return false;
+    else if(Integer.parseInt(bookingDate[0]) >= currentDate.getDay()){
+      return true;
     }
     else{
-      return true;
+      return false;
     }
   }
 }
