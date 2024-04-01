@@ -1,0 +1,9 @@
+package nz.ac.auckland.se281;
+
+public abstract class Service {
+
+  int cost;
+  public Service(int cost){
+    this.cost = cost;
+  }
+}
