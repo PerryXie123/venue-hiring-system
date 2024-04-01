@@ -413,6 +413,7 @@ public class VenueHireSystem {
     total = Integer.parseInt(hireFee) + cateringFee + musicFee + floralFee;
 
     MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(bookingReference, email, dateBooking, dateParty, Integer.toString(attendees), venue);
+    MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(hireFee);
 
   }
 
