@@ -356,6 +356,11 @@ public class VenueHireSystem {
     if(referenceCheck == 0){
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
     }
+    else if(referenceCheck > 0){
+      Floral floral = new Floral(floralType.getCost(), bookingReference, floralType.getName());
+      serviceList.add(floral);
+      MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Floral (" + floralType.getName() + ")", bookingReference);
+    }
   }
 
   public void viewInvoice(String bookingReference) {
