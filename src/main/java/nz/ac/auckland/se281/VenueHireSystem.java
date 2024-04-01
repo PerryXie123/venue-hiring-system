@@ -376,6 +376,9 @@ public class VenueHireSystem {
     String floral = "";
     int floralFee = 0;
     int total = 0;
+    boolean cateringCheck = false;
+    boolean musicCheck = false;
+    boolean floralCheck = false;
 
     for (Booking booking : bookingList) {
       if (booking.getReference().equals(bookingReference)){
@@ -392,16 +395,16 @@ public class VenueHireSystem {
         for (Service service : serviceList) {
           if (service.getReference().equals(bookingReference)){
             if (service instanceof Catering){
-              boolean cateringCheck = true;
+              cateringCheck = true;
               catering = service.getType();
               cateringFee = service.getCost()*attendees;
             }
             else if (service instanceof Music){
-              boolean musicCheck = true;
+              musicCheck = true;
               musicFee = 500;
             }
             else if (service instanceof Floral){
-              boolean floralCheck = true;
+              floralCheck = true;
               floral = service.getType();
               floralFee = service.getCost();
 
@@ -414,6 +417,9 @@ public class VenueHireSystem {
 
     MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(bookingReference, email, dateBooking, dateParty, Integer.toString(attendees), venue);
     MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(hireFee);
+    if(cateringCheck == true){
+      MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(catering, Integer.toString(cateringFee));
+    }
 
   }
 
