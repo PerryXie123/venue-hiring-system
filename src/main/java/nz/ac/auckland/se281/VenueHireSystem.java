@@ -10,6 +10,7 @@ public class VenueHireSystem {
   //private ArrayList<Venue> venueList;
   private ArrayList<Venue> venueList = new ArrayList<Venue>();
   private ArrayList<Booking> bookingList = new ArrayList<Booking>();
+  private ArrayList<Service> serviceList = new ArrayList<Service>();
   private Date currentDate;
 
   public VenueHireSystem() {
@@ -317,6 +318,11 @@ public class VenueHireSystem {
 
     if(referenceCheck == 0){
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Catering", bookingReference);
+    }
+    else if(referenceCheck > 0){
+      Catering catering = new Catering(cateringType.getCostPerPerson(), bookingReference, cateringType.getName());
+      serviceList.add(catering);
+      MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Catering (" + cateringType.getName() + ")", bookingReference);
     }
 
   }
