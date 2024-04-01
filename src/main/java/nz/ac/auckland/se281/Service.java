@@ -2,8 +2,11 @@ package nz.ac.auckland.se281;
 
 public abstract class Service {
 
-  int cost;
-  public Service(int cost){
+  protected int cost;
+  protected String bookingReference;  
+
+  public Service(int cost, String bookingReference){
     this.cost = cost;
+    this.bookingReference = bookingReference;
   }
 }
