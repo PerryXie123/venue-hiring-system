@@ -420,6 +420,9 @@ public class VenueHireSystem {
     if(cateringCheck == true){
       MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(catering, Integer.toString(cateringFee));
     }
+    if(musicCheck == true){
+      MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage("500");
+    }
 
   }
 
