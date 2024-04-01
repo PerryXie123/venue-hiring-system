@@ -427,7 +427,7 @@ public class VenueHireSystem {
       MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(floral, Integer.toString(floralFee));
     }
 
-    MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage();
+    MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(Integer.toString(total));
 
   }
 
