@@ -266,7 +266,7 @@ public class VenueHireSystem {
       }
       
       String bookingReference = BookingReferenceGenerator.generateBookingReference();
-      Booking booking = new Booking(options[0], options[1], options[2], options[3], bookingReference, VenueName);
+      Booking booking = new Booking(options[0], options[1], options[2], options[3], bookingReference, VenueName, currentDate.getDate());
       bookingList.add(booking);
       MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingReference, VenueName, options[1], options[3]);
     }    
@@ -364,7 +364,56 @@ public class VenueHireSystem {
   }
 
   public void viewInvoice(String bookingReference) {
-    // TODO implement this method
+    String email = "";
+    String dateBooking = "";
+    String dateParty = "";
+    int attendees = 0;
+    String venue = "";
+    String hireFee = "";
+    String catering = "";
+    int cateringFee = 0;
+    int musicFee = 0;
+    String floral = "";
+    int floralFee = 0;
+    int total = 0;
+
+    for (Booking booking : bookingList) {
+      if (booking.getReference().equals(bookingReference)){
+        email = booking.getEmail();
+        dateBooking = booking.getDateOfBooking();
+        dateParty = booking.getRequestedDate();
+        attendees = Integer.parseInt(booking.getAttendees());
+        venue = booking.getVenueName();
+        for (Venue venues : venueList) {
+          if (venues.getCode().equals(booking.getBookingCode())){
+            hireFee = venues.getFee();
+          }
+        }
+        for (Service service : serviceList) {
+          if (service.getReference().equals(bookingReference)){
+            if (service instanceof Catering){
+              boolean cateringCheck = true;
+              catering = service.getType();
+              cateringFee = service.getCost()*attendees;
+            }
+            else if (service instanceof Music){
+              boolean musicCheck = true;
+              musicFee = 500;
+            }
+            else if (service instanceof Floral){
+              boolean floralCheck = true;
+              floral = service.getType();
+              floralFee = service.getCost();
+
+            }
+          }
+        }
+      }
+    }
+    total = Integer.parseInt(hireFee) + cateringFee + musicFee + floralFee;
+
+    MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(bookingReference, email, dateBooking, dateParty, Integer.toString(attendees), venue);
+
   }
 
   //Adds Venue to Arraylist
