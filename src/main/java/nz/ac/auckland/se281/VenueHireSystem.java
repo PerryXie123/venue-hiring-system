@@ -338,6 +338,11 @@ public class VenueHireSystem {
     if(referenceCheck == 0){
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
     }
+    else if(referenceCheck > 0){
+      Music music = new Music(500, bookingReference, "null");
+      serviceList.add(music);
+      MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Music", bookingReference);
+    }
   }
 
   public void addServiceFloral(String bookingReference, FloralType floralType) {
