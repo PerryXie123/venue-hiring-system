@@ -426,6 +426,9 @@ public class VenueHireSystem {
     if(floralCheck == true){
       MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(floral, Integer.toString(floralFee));
     }
+
+    MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage();
+
   }
 
   //Adds Venue to Arraylist
