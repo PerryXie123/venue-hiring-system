@@ -11,4 +11,10 @@ public abstract class Service {
     this.bookingReference = bookingReference;
     this.type = type;
   }
+
+  abstract public int getCost();
+
+  abstract public String getReference();
+
+  abstract public String getType();
 }
