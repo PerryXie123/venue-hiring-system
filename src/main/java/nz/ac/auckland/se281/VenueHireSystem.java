@@ -379,9 +379,11 @@ public class VenueHireSystem {
     boolean cateringCheck = false;
     boolean musicCheck = false;
     boolean floralCheck = false;
+    boolean bookingRefCheck = false;
 
     for (Booking booking : bookingList) {
       if (booking.getReference().equals(bookingReference)){
+        bookingRefCheck = true;
         email = booking.getEmail();
         dateBooking = booking.getDateOfBooking();
         dateParty = booking.getRequestedDate();
@@ -413,21 +415,27 @@ public class VenueHireSystem {
         }
       }
     }
+
+    if(bookingRefCheck == false){
+      MessageCli.VIEW_INVOICE_BOOKING_NOT_FOUND.printMessage(bookingReference);
+    }
+    else if(bookingRefCheck == true){
     total = Integer.parseInt(hireFee) + cateringFee + musicFee + floralFee;
 
-    MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(bookingReference, email, dateBooking, dateParty, Integer.toString(attendees), venue);
-    MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(hireFee);
-    if(cateringCheck == true){
-      MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(catering, Integer.toString(cateringFee));
-    }
-    if(musicCheck == true){
-      MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage("500");
-    }
-    if(floralCheck == true){
-      MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(floral, Integer.toString(floralFee));
-    }
+      MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(bookingReference, email, dateBooking, dateParty, Integer.toString(attendees), venue);
+      MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(hireFee);
+      if(cateringCheck == true){
+        MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(catering, Integer.toString(cateringFee));
+      }
+      if(musicCheck == true){
+        MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage("500");
+      }
+      if(floralCheck == true){
+        MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(floral, Integer.toString(floralFee));
+      }
 
-    MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(Integer.toString(total));
+      MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(Integer.toString(total));
+    }
 
   }
 
