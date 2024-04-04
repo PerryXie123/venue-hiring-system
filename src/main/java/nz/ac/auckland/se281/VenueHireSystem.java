@@ -216,6 +216,7 @@ public class VenueHireSystem {
     String VenueName = "null";
     String alreadyBookedVenue = "null";
     String bookedDate = "null";
+    Date bookingdate = new Date(bookingDateParts[0], bookingDateParts[1], bookingDateParts[2]);
     for (Booking booking : bookingList) {
       if(options[0].equals(booking.getBookingCode()) && options[1].equals(booking.getRequestedDate()))
       venueCompare++;
@@ -242,7 +243,7 @@ public class VenueHireSystem {
       MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(options[0]);
       bookingValid = false;
     }
-    else if (dateAfterCheck(bookingDateParts) == false){
+    else if (bookingdate.isAfter(currentDate) == false){
       MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(options[1], (theDay(currentDate)));
       bookingValid = false;
     }
