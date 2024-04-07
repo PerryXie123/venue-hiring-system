@@ -19,16 +19,19 @@ public class VenueHireSystem {
   //prints venue with different messages depending on the number of venues in the system currently
   public void printVenues() {
     Date tempDate = new Date("00", "00", "00");
-    for (Venue venue :venueList) {
-      for (Booking booking : bookingList) {
-        if(venue.getCode().equals(booking.getBookingCode())){
-          while(venue.getNextAvailable().getDate().equals(booking.getRequestedDate())){
-            tempDate = venue.getNextAvailable().incrementDate();
-            venue.setNextAvailable(tempDate);
+    for (int i = 0; i < 10; i++){
+      for (Venue venue :venueList) {
+        for (Booking booking : bookingList) {
+          if(venue.getCode().equals(booking.getBookingCode())){
+            if(venue.getNextAvailable().getDate().equals(booking.getRequestedDate())){
+              tempDate = venue.getNextAvailable().incrementDate();
+              venue.setNextAvailable(tempDate);
+            }
           }
         }
       }
     }
+
     if (venueList.size() == 0) {
       //Prints no venue message if the size of the venue arraylist is zero
       MessageCli.NO_VENUES.printMessage();
