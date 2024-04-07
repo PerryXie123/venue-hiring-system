@@ -243,7 +243,7 @@ public class VenueHireSystem {
       MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(options[0]);
       bookingValid = false;
     }
-    else if (bookingdate.isAfter(currentDate) == false){
+    else if (bookingdate.isAfter(currentDate) == false && bookingdate.isSameAs(currentDate) == false){
       MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(options[1], (theDay(currentDate)));
       bookingValid = false;
     }

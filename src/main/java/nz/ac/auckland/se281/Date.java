@@ -62,6 +62,14 @@ public class Date {
     }
   }
 
+  public boolean isSameAs(Date dateToCheck){
+    if(getYear() != dateToCheck.getYear() || getMonth() != dateToCheck.getMonth() || getDay() != dateToCheck.getDay())
+    return false;
+    else{
+      return true;
+    }
+  }
+
   public Date incrementDate(){
     int newDay = 0;
     int newMonth = 0;
