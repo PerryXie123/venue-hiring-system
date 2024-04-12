@@ -5,7 +5,6 @@ public class Date {
   private String day;
   private String month;
   private String year;
-  private LocalDate theDate;
 
   public Date (String day, String month, String year){
     this.day = day;
