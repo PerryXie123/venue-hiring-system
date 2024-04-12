@@ -613,10 +613,12 @@ public class VenueHireSystem {
 
   //Checks if code is valid
   public boolean checkCode(String codeString) {
+    //Checks all the venues in the list of venues
     for (Venue venue : venueList) {
       if (codeString.equals(venue.getCode()) == true) {
         MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(
           codeString,
+          //Gets the name of the venue
           venue.getName()
         );
         return false;
