@@ -17,6 +17,7 @@ public class VenueHireSystem {
   //prints venue with different messages depending on the number of venues in the system currently
   public void printVenues() {
     Date tempDate = new Date("00", "00", "00");
+    //Loops through the list of venues before printing venues to update next available
     for (int i = 0; i < 10; i++) {
       for (Venue venue : venueList) {
         for (Booking booking : bookingList) {
@@ -27,6 +28,7 @@ public class VenueHireSystem {
                 .getDate()
                 .equals(booking.getRequestedDate())
             ) {
+              //If the booking date and next available date equals, increments and sets new date
               tempDate = venue.getNextAvailable().incrementDate();
               venue.setNextAvailable(tempDate);
             }
@@ -173,6 +175,7 @@ public class VenueHireSystem {
     String capacityInput,
     String hireFeeInput
   ) {
+    //Checks if there is a next available date set
     Date nextAvailable;
     if (currentDate == null) {
       nextAvailable = new Date("00", "00", "00");
@@ -196,18 +199,25 @@ public class VenueHireSystem {
     }
   }
 
+  //Sets the system date
   public void setSystemDate(String dateInput) {
+    //Splits the date input into day, month, and year
     String[] dateParts = dateInput.split("/");
+    //Creates a new date instance using these new parts
     Date date = new Date(dateParts[0], dateParts[1], dateParts[2]);
     currentDate = date;
+    //Prints the set date message
     MessageCli.DATE_SET.printMessage(dateInput);
+    //Updates all venues to have the current date as their next available
     for (Venue venue : venueList) {
       venue.setNextAvailable(date);
     }
     date.setTheDate();
   }
 
+  //Prints the system date
   public void printSystemDate() {
+    //Checks if date is set, if yes, then prints it
     if (currentDate == null) {
       MessageCli.CURRENT_DATE.printMessage("not set");
     } else {
@@ -215,7 +225,10 @@ public class VenueHireSystem {
     }
   }
 
+  //Makes a booking
   public void makeBooking(String[] options) {
+    //Splits the input date into day, month, and year
+    //Initialises all needed variable used in a booking
     String[] bookingDateParts = options[1].split("/");
     int codeCompare = 0;
     int venueCompare = 0;
@@ -224,11 +237,13 @@ public class VenueHireSystem {
     String venueName = "null";
     String alreadyBookedVenue = "null";
     String bookedDate = "null";
+    //Creates a new date instance using the input date
     Date bookingdate = new Date(
       bookingDateParts[0],
       bookingDateParts[1],
       bookingDateParts[2]
     );
+    //Checks if the venue is created, increments a counter
     for (Booking booking : bookingList) {
       if (
         options[0].equals(booking.getBookingCode()) &&
@@ -237,7 +252,7 @@ public class VenueHireSystem {
       alreadyBookedVenue = booking.getVenueName();
       bookedDate = booking.getRequestedDate();
     }
-
+    //Checks if the venue code is valid
     for (Venue venue : venueList) {
       if (options[0].equals(venue.getCode())) {
         codeCompare++;
@@ -245,15 +260,19 @@ public class VenueHireSystem {
         venueName = venue.getName();
       }
     }
+    //Error message if there is no current date set
     if (currentDate == null) {
       MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
       bookingValid = false;
+    //Error is there are no venues created
     } else if (venueList.size() == 0) {
       MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
       bookingValid = false;
+    //Error if the booking code doesn't exist
     } else if (codeCompare == 0) {
       MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(options[0]);
       bookingValid = false;
+    //Error if the boooking date is before the current date
     } else if (
       bookingdate.isAfter(currentDate) == false &&
       bookingdate.isSameAs(currentDate) == false
@@ -263,6 +282,7 @@ public class VenueHireSystem {
         (theDay(currentDate))
       );
       bookingValid = false;
+    //Error if venue is already booked on the same date
     } else if (venueCompare != 0) {
       MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(
         alreadyBookedVenue,
@@ -270,8 +290,10 @@ public class VenueHireSystem {
       );
       bookingValid = false;
     }
-
+    //If all prior cases are false, then booking validity is true
     if (bookingValid == true) {
+      //Sets the lower and upper limits for number of attendees
+      //If the attendees is greater than the capacity
       if (Integer.parseInt(options[3]) > venueCapacity) {
         int newAttendees = venueCapacity;
         String oldAttendees = options[3];
@@ -281,6 +303,7 @@ public class VenueHireSystem {
           Integer.toString(newAttendees),
           Integer.toString(venueCapacity)
         );
+      //If the attendees is lower than a quarter of the capacity
       } else if (Integer.parseInt(options[3]) < venueCapacity / 4) {
         int newAttendees = venueCapacity / 4;
         String oldAttendees = options[3];
@@ -292,6 +315,7 @@ public class VenueHireSystem {
         );
       }
 
+      //Creates a new instance of a booking with all the given inputs
       String bookingReference = BookingReferenceGenerator.generateBookingReference();
       Booking booking = new Booking(
         options[0],
@@ -302,6 +326,7 @@ public class VenueHireSystem {
         venueName,
         currentDate.getDate()
       );
+      //Adds the booking to the list of bookings
       bookingList.add(booking);
       MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
         bookingReference,
@@ -312,10 +337,13 @@ public class VenueHireSystem {
     }
   }
 
+  //Prints all the bookings
   public void printBookings(String venueCode) {
+    //Initialises the needed variables
     int venueCount = 0;
     String venueName = "";
     int bookingsCount = 0;
+    //Loops through all the venues with the same code
     for (Venue venue : venueList) {
       if (venueCode.equals(venue.getCode())) {
         venueCount++;
@@ -327,11 +355,13 @@ public class VenueHireSystem {
         bookingsCount++;
       }
     }
+    //Error if there are no venues, no bookings, eg
     if (venueCount == 0) {
       MessageCli.PRINT_BOOKINGS_VENUE_NOT_FOUND.printMessage(venueCode);
     } else if (bookingsCount == 0 && venueCount > 0) {
       MessageCli.PRINT_BOOKINGS_HEADER.printMessage(venueName);
       MessageCli.PRINT_BOOKINGS_NONE.printMessage(venueName);
+    //If everything is valid, prints the booking
     } else if (bookingsCount > 0 && venueCount > 0) {
       MessageCli.PRINT_BOOKINGS_HEADER.printMessage(venueName);
       for (Booking booking : bookingList) {
@@ -345,28 +375,33 @@ public class VenueHireSystem {
     }
   }
 
+  //Adds catering service
   public void addCateringService(
+    //Initialises variables for the method
     String bookingReference,
     CateringType cateringType
   ) {
+    //Checks if the booking reference exists
     int referenceCheck = 0;
     for (Booking booking : bookingList) {
       if (booking.getReference().equals(bookingReference)) {
         referenceCheck++;
       }
     }
-
+    //If the booking reference doesn't exist, gives an error
     if (referenceCheck == 0) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage(
         "Catering",
         bookingReference
       );
+    //If the booking reference does exist, adds the needed catering
     } else if (referenceCheck > 0) {
       Catering catering = new Catering(
         cateringType.getCostPerPerson(),
         bookingReference,
         cateringType.getName()
       );
+      //adds catering to the list
       serviceList.add(catering);
       MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(
         "Catering (" + cateringType.getName() + ")",
@@ -375,7 +410,9 @@ public class VenueHireSystem {
     }
   }
 
+  //Adds the music service
   public void addServiceMusic(String bookingReference) {
+    //Initialises the reference checker
     int referenceCheck = 0;
     for (Booking booking : bookingList) {
       if (booking.getReference().equals(bookingReference)) {
@@ -383,37 +420,44 @@ public class VenueHireSystem {
       }
     }
 
+    //If the reference doesn't exists, gives an error message
     if (referenceCheck == 0) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage(
         "Music",
         bookingReference
       );
+    //If the reference exists, adds the music service
     } else if (referenceCheck > 0) {
+      //Adds the service to the service list
       Music music = new Music(500, bookingReference, "null");
       serviceList.add(music);
       MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Music", bookingReference);
     }
   }
 
+  //Adds the floral service
   public void addServiceFloral(String bookingReference, FloralType floralType) {
+    //Initialises the reference checker
     int referenceCheck = 0;
     for (Booking booking : bookingList) {
       if (booking.getReference().equals(bookingReference)) {
         referenceCheck++;
       }
     }
-
+    //Error if the reference doesn't exist
     if (referenceCheck == 0) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage(
         "Floral",
         bookingReference
       );
+    //If the reference exists, adds the floral depending on the user input
     } else if (referenceCheck > 0) {
       Floral floral = new Floral(
         floralType.getCost(),
         bookingReference,
         floralType.getName()
       );
+      //Adds the service instance to a list
       serviceList.add(floral);
       MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(
         "Floral (" + floralType.getName() + ")",
@@ -422,6 +466,7 @@ public class VenueHireSystem {
     }
   }
 
+  //Views the invoices with the current booking reference
   public void viewInvoice(String bookingReference) {
     //Initialises all possible values which are used in the invoice
     String email = "";
@@ -626,18 +671,5 @@ public class VenueHireSystem {
 
   public String theDay(Date date) {
     return date.getDate();
-  }
-
-  
-  public boolean dateAfterCheck(String[] bookingDate) {
-    if (Integer.parseInt(bookingDate[2]) >= currentDate.getYear()) {
-      return true;
-    } else if (Integer.parseInt(bookingDate[1]) >= currentDate.getMonth()) {
-      return true;
-    } else if (Integer.parseInt(bookingDate[0]) >= currentDate.getDay()) {
-      return true;
-    } else {
-      return false;
-    }
   }
 }
