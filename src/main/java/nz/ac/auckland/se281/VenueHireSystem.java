@@ -220,8 +220,8 @@ public class VenueHireSystem {
     int codeCompare = 0;
     int venueCompare = 0;
     boolean bookingValid = true;
-    int VenueCapacity = 0;
-    String VenueName = "null";
+    int venueCapacity = 0;
+    String venueName = "null";
     String alreadyBookedVenue = "null";
     String bookedDate = "null";
     Date bookingdate = new Date(
@@ -241,8 +241,8 @@ public class VenueHireSystem {
     for (Venue venue : venueList) {
       if (options[0].equals(venue.getCode())) {
         codeCompare++;
-        VenueCapacity = Integer.parseInt(venue.getCap());
-        VenueName = venue.getName();
+        venueCapacity = Integer.parseInt(venue.getCap());
+        venueName = venue.getName();
       }
     }
     if (currentDate == null) {
@@ -272,23 +272,23 @@ public class VenueHireSystem {
     }
 
     if (bookingValid == true) {
-      if (Integer.parseInt(options[3]) > VenueCapacity) {
-        int newAttendees = VenueCapacity;
+      if (Integer.parseInt(options[3]) > venueCapacity) {
+        int newAttendees = venueCapacity;
         String oldAttendees = options[3];
         options[3] = Integer.toString(newAttendees);
         MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(
           oldAttendees,
           Integer.toString(newAttendees),
-          Integer.toString(VenueCapacity)
+          Integer.toString(venueCapacity)
         );
-      } else if (Integer.parseInt(options[3]) < VenueCapacity / 4) {
-        int newAttendees = VenueCapacity / 4;
+      } else if (Integer.parseInt(options[3]) < venueCapacity / 4) {
+        int newAttendees = venueCapacity / 4;
         String oldAttendees = options[3];
         options[3] = Integer.toString(newAttendees);
         MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(
           oldAttendees,
           Integer.toString(newAttendees),
-          Integer.toString(VenueCapacity)
+          Integer.toString(venueCapacity)
         );
       }
 
@@ -299,13 +299,13 @@ public class VenueHireSystem {
         options[2],
         options[3],
         bookingReference,
-        VenueName,
+        venueName,
         currentDate.getDate()
       );
       bookingList.add(booking);
       MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
         bookingReference,
-        VenueName,
+        venueName,
         options[1],
         options[3]
       );
@@ -423,6 +423,7 @@ public class VenueHireSystem {
   }
 
   public void viewInvoice(String bookingReference) {
+    //Initialises all possible values which are used in the invoice
     String email = "";
     String dateBooking = "";
     String dateParty = "";
@@ -435,11 +436,13 @@ public class VenueHireSystem {
     String floral = "";
     int floralFee = 0;
     int total = 0;
+    //Initialses booleans to check if services and references are valid
     boolean cateringCheck = false;
     boolean musicCheck = false;
     boolean floralCheck = false;
     boolean bookingRefCheck = false;
 
+    //Looks through the list of bookings, gets information about the booking
     for (Booking booking : bookingList) {
       if (booking.getReference().equals(bookingReference)) {
         bookingRefCheck = true;
@@ -448,6 +451,7 @@ public class VenueHireSystem {
         dateParty = booking.getRequestedDate();
         attendees = Integer.parseInt(booking.getAttendees());
         venue = booking.getVenueName();
+        //Looks through the venues list to get the venue hire fee
         for (Venue venues : venueList) {
           if (venues.getCode().equals(booking.getBookingCode())) {
             hireFee = venues.getFee();
@@ -455,13 +459,16 @@ public class VenueHireSystem {
         }
         for (Service service : serviceList) {
           if (service.getReference().equals(bookingReference)) {
+            //Checks if there is a catering service, gets service type and calculates price
             if (service instanceof Catering) {
               cateringCheck = true;
               catering = service.getType();
               cateringFee = service.getCost() * attendees;
+            //Checks if there is a music service, sets the price
             } else if (service instanceof Music) {
               musicCheck = true;
               musicFee = 500;
+            //Checks if there is a floral service, gets service type and cost
             } else if (service instanceof Floral) {
               floralCheck = true;
               floral = service.getType();
@@ -471,9 +478,10 @@ public class VenueHireSystem {
         }
       }
     }
-
+    //Prints error if booking reference is invalid
     if (bookingRefCheck == false) {
       MessageCli.VIEW_INVOICE_BOOKING_NOT_FOUND.printMessage(bookingReference);
+    //Otherwise, prints the top half of the invoice
     } else if (bookingRefCheck == true) {
       total = Integer.parseInt(hireFee) + cateringFee + musicFee + floralFee;
 
@@ -485,6 +493,7 @@ public class VenueHireSystem {
         Integer.toString(attendees),
         venue
       );
+      //Prints the venue and service fees depending on which ones are added
       MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(hireFee);
       if (cateringCheck == true) {
         MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(
@@ -501,7 +510,7 @@ public class VenueHireSystem {
           Integer.toString(floralFee)
         );
       }
-
+      //Prints the bottom half of the invoice with the total price
       MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(
         Integer.toString(total)
       );
@@ -596,7 +605,9 @@ public class VenueHireSystem {
   //Checks if the hire fee is valid using the same logic as checking the capacity
   public boolean checkHireFee(String feeString) {
     try {
+      //Trys to get the integer value of the fee from a string
       int num = Integer.valueOf(feeString);
+      //If there isn't an error, and it is a positive number, returns a boolean true
       if (num <= 0) {
         MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage(
           "hire fee",
@@ -606,6 +617,7 @@ public class VenueHireSystem {
       } else {
         return true;
       }
+      //If there is an error, return a boolean false that the hire fee is valid
     } catch (Exception exception) {
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
       return false;
@@ -616,6 +628,7 @@ public class VenueHireSystem {
     return date.getDate();
   }
 
+  
   public boolean dateAfterCheck(String[] bookingDate) {
     if (Integer.parseInt(bookingDate[2]) >= currentDate.getYear()) {
       return true;
