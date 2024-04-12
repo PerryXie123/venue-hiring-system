@@ -45,14 +45,14 @@ public class VenueHireSystem {
       MessageCli.NUMBER_VENUES.printMessage("is", "one", "");
       for (Venue venue : venueList) {
         MessageCli.VENUE_ENTRY.printMessage(
-          venue.getName(),
-          venue.getCode(),
-          venue.getCap(),
-          venue.getFee(),
-          venue.getNextAvailable().getDate()
+        venue.getName(),
+        venue.getCode(),
+        venue.getCap(),
+        venue.getFee(),
+        venue.getNextAvailable().getDate()
         );
       }
-      //For sizes 2-9, use the keywords "are" and "number of venues"
+    //For sizes 2-9, use the keywords "are" and "number of venues"
     } else if (venueList.size() == 2) {
       MessageCli.NUMBER_VENUES.printMessage("are", "two", "s");
       for (Venue venue : venueList) {
@@ -81,11 +81,11 @@ public class VenueHireSystem {
       MessageCli.NUMBER_VENUES.printMessage("are", "four", "s");
       for (Venue venue : venueList) {
         MessageCli.VENUE_ENTRY.printMessage(
-          venue.getName(),
-          venue.getCode(),
-          venue.getCap(),
-          venue.getFee(),
-          venue.getNextAvailable().getDate()
+        venue.getName(),
+        venue.getCode(),
+        venue.getCap(),
+        venue.getFee(),
+        venue.getNextAvailable().getDate()
         );
       }
       //Message for 5 venues
@@ -627,7 +627,7 @@ public class VenueHireSystem {
     return true;
   }
 
-  //Checks if capacity is valid be trying to change from a string to an integer. Catches an exception if an error is returned
+  //Checks if capacity is valid be trying to change from a string to an integer
   public boolean checkCap(String capString) {
     try {
       //Tries to get the integer value of a string
