@@ -34,17 +34,13 @@ public class Date {
     // Appends a zero if the day is a single digit
     if (getDay() <= 9 && getMonth() > 9) {
       return ("0" + getDay() + "/" + getMonth() + "/" + getYear());
-    }
-    // Appends a zero if the month is a single digit
-    else if (getMonth() <= 9 && getDay() > 9) {
+    } else if (getMonth() <= 9 && getDay() > 9) { // Appends a zero if the month is a single digit
       return (getDay() + "/0" + getMonth() + "/" + getYear());
-    }
-    // Appends two zeroes if day and month are single digits
-    else if (getDay() <= 9 && getMonth() <= 9) {
+    } else if (getDay() <= 9
+        && getMonth() <= 9) { // Appends two zeroes if day and month are single digits
       return ("0" + getDay() + "/0" + getMonth() + "/" + getYear());
-    }
-    // Else returns the normal date
-    else {
+    } else { // Else returns the normal date
+
       return (getDay() + "/" + getMonth() + "/" + getYear());
     }
   }
@@ -71,8 +67,9 @@ public class Date {
   public boolean isSameAs(Date dateToCheck) {
     if (getYear() != dateToCheck.getYear()
         || getMonth() != dateToCheck.getMonth()
-        || getDay() != dateToCheck.getDay()) return false;
-    else {
+        || getDay() != dateToCheck.getDay()) {
+      return false;
+    } else {
       return true;
     }
   }

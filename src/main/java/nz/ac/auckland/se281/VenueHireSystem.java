@@ -214,9 +214,11 @@ public class VenueHireSystem {
     // Checks if the venue is created, increments a counter
     for (Booking booking : bookingList) {
       if (options[0].equals(booking.getBookingCode())
-          && options[1].equals(booking.getRequestedDate())) venueCompare++;
-      alreadyBookedVenue = booking.getVenueName();
-      bookedDate = booking.getRequestedDate();
+          && options[1].equals(booking.getRequestedDate())) {
+        venueCompare++;
+        alreadyBookedVenue = booking.getVenueName();
+        bookedDate = booking.getRequestedDate();
+      }
     }
     // Checks if the venue code is valid
     for (Venue venue : venueList) {
@@ -226,6 +228,7 @@ public class VenueHireSystem {
         venueName = venue.getName();
       }
     }
+
     // Error message if there is no current date set
     if (currentDate == null) {
       MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
@@ -382,7 +385,7 @@ public class VenueHireSystem {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
       // If the reference exists, adds the floral depending on the user input
     } else if (referenceCheck > 0) {
-      Floral floral = new Floral(floralType.getCost(), bookingReference, floralType.getName());
+      FloralService floral = new FloralService(floralType.getCost(), bookingReference, floralType.getName());
       // Adds the service instance to a list
       serviceList.add(floral);
       MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(
@@ -438,7 +441,7 @@ public class VenueHireSystem {
               musicCheck = true;
               musicFee = 500;
               // Checks if there is a floral service, gets service type and cost
-            } else if (service instanceof Floral) {
+            } else if (service instanceof FloralService) {
               floralCheck = true;
               floral = service.getType();
               floralFee = service.getCost();
