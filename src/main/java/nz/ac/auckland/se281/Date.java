@@ -29,21 +29,21 @@ public class Date {
     return theYear;
   }
 
-  //Gets the string interpretation of the date instance
+  // Gets the string interpretation of the date instance
   public String getDate() {
-    //Appends a zero if the day is a single digit
+    // Appends a zero if the day is a single digit
     if (getDay() <= 9 && getMonth() > 9) {
       return ("0" + getDay() + "/" + getMonth() + "/" + getYear());
     }
-    //Appends a zero if the month is a single digit
+    // Appends a zero if the month is a single digit
     else if (getMonth() <= 9 && getDay() > 9) {
       return (getDay() + "/0" + getMonth() + "/" + getYear());
     }
-    //Appends two zeroes if day and month are single digits
+    // Appends two zeroes if day and month are single digits
     else if (getDay() <= 9 && getMonth() <= 9) {
       return ("0" + getDay() + "/0" + getMonth() + "/" + getYear());
     }
-    //Else returns the normal date
+    // Else returns the normal date
     else {
       return (getDay() + "/" + getMonth() + "/" + getYear());
     }
@@ -51,24 +51,17 @@ public class Date {
 
   public void setTheDate() {
     LocalDate.of(
-      Integer.valueOf(getYear()),
-      Integer.valueOf(getMonth()),
-      Integer.valueOf(getDay())
-    );
+        Integer.valueOf(getYear()), Integer.valueOf(getMonth()), Integer.valueOf(getDay()));
   }
 
   public boolean isAfter(Date dateToCheck) {
     if (getYear() > dateToCheck.getYear()) {
       return true;
-    } else if (
-      getYear() == dateToCheck.getYear() && getMonth() > dateToCheck.getMonth()
-    ) {
+    } else if (getYear() == dateToCheck.getYear() && getMonth() > dateToCheck.getMonth()) {
       return true;
-    } else if (
-      getYear() == dateToCheck.getYear() &&
-      getMonth() == dateToCheck.getMonth() &&
-      getDay() > dateToCheck.getDay()
-    ) {
+    } else if (getYear() == dateToCheck.getYear()
+        && getMonth() == dateToCheck.getMonth()
+        && getDay() > dateToCheck.getDay()) {
       return true;
     } else {
       return false;
@@ -76,11 +69,10 @@ public class Date {
   }
 
   public boolean isSameAs(Date dateToCheck) {
-    if (
-      getYear() != dateToCheck.getYear() ||
-      getMonth() != dateToCheck.getMonth() ||
-      getDay() != dateToCheck.getDay()
-    ) return false; else {
+    if (getYear() != dateToCheck.getYear()
+        || getMonth() != dateToCheck.getMonth()
+        || getDay() != dateToCheck.getDay()) return false;
+    else {
       return true;
     }
   }
@@ -89,15 +81,13 @@ public class Date {
     int newDay = 0;
     int newMonth = 0;
     int newYear = 0;
-    if (
-      getMonth() == 1 ||
-      getMonth() == 3 ||
-      getMonth() == 5 ||
-      getMonth() == 7 ||
-      getMonth() == 8 ||
-      getMonth() == 10 ||
-      getMonth() == 12
-    ) {
+    if (getMonth() == 1
+        || getMonth() == 3
+        || getMonth() == 5
+        || getMonth() == 7
+        || getMonth() == 8
+        || getMonth() == 10
+        || getMonth() == 12) {
       if (getDay() <= 30) {
         newDay = getDay() + 1;
         newMonth = getMonth();
@@ -113,9 +103,7 @@ public class Date {
           newDay = 1;
         }
       }
-    } else if (
-      getMonth() == 4 || getMonth() == 6 || getMonth() == 9 || getMonth() == 11
-    ) {
+    } else if (getMonth() == 4 || getMonth() == 6 || getMonth() == 9 || getMonth() == 11) {
       if (getDay() <= 29) {
         newDay = getDay() + 1;
         newMonth = getMonth();
@@ -147,10 +135,7 @@ public class Date {
       }
     }
     return new Date(
-      Integer.toString(newDay),
-      Integer.toString(newMonth),
-      Integer.toString(newYear)
-    );
+        Integer.toString(newDay), Integer.toString(newMonth), Integer.toString(newYear));
     // if(newDay <= 9 && newMonth > 9){
     //   return("0" + newDay + "/" + newMonth + "/" + newYear);
     // }

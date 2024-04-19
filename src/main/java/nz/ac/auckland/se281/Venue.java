@@ -1,6 +1,6 @@
 package nz.ac.auckland.se281;
 
-//import java.util.ArrayList;
+// import java.util.ArrayList;
 
 public class Venue {
   private String name;
@@ -9,7 +9,12 @@ public class Venue {
   private String fee;
   private Date nextdate;
 
-  public Venue(String venueName, String venueCode, String capacityInput, String hireFeeInput, Date nextAvailable) {
+  public Venue(
+      String venueName,
+      String venueCode,
+      String capacityInput,
+      String hireFeeInput,
+      Date nextAvailable) {
     name = venueName;
     code = venueCode;
     cap = capacityInput;
@@ -37,8 +42,7 @@ public class Venue {
     return nextdate;
   }
 
-  public void setNextAvailable(Date dateInput){
+  public void setNextAvailable(Date dateInput) {
     nextdate = dateInput;
   }
-
 }
